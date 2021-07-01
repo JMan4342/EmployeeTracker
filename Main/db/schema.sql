@@ -3,15 +3,9 @@ CREATE database employeeDB;
 
 USE employeeDB;
 
-CREATE TABLE employee (
+CREATE TABLE department (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(30) NOT NULL,
-    role_id INT UNSIGNED NOT NULL,
-    INDEX role_ind (role_ind),
-    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
-    manager_id INT UNSIGNED, 
-    INDEX man_in (manager_id),
+    name VARCHAR(30) UNIQUE NOT NULL
 );
 
 
@@ -24,9 +18,13 @@ CREATE TABLE role (
     CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
 );
 
-CREATE TABLE department (
+CREATE TABLE employee (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30) UNIQUE NOT NULL
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    role_id INT UNSIGNED NOT NULL,
+    INDEX role_id (role_id),
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
+    manager_id INT UNSIGNED, 
+    INDEX man_in (manager_id)
 );
-
-SELECT * FROM employeeDB;
