@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
+const cTable = require("console.table")
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -40,7 +41,7 @@ async function userMenu() {
       } else if (data.option === "View department") {
         viewDept();
       } else if (data.option === "Update employee role") {
-        updateEmployee();
+        updateEmpRole();
       } else {
         console.log("Good bye!");
         process.exit(0);
@@ -162,9 +163,30 @@ async function viewDept() {
     }
   }
 
-// function updateEmployee() {
-
-// }
+async function updateEmpRole() {
+  try {
+    const { role_id, id } = await inquirer
+    .prompt([
+      {
+        message: "What is the ID number for the employee?",
+        name: "id",
+      },
+      {
+        message: "What is the new role ID you are updating to?",
+        name: "role_id",
+      },
+    ])
+    await connection.promise().query("UPDATE employee SET role_id WHERE id ?",
+    {
+      role_id, 
+      id
+    });
+      console.table(res);
+    userMenu();
+    } catch (err) {
+      console.log(err)
+    }
+}
 
 connection.connect((err) => {
   if (err) throw err;
