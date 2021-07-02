@@ -176,12 +176,13 @@ async function updateEmpRole() {
         name: "role_id",
       },
     ])
-    await connection.promise().query("UPDATE employee SET role_id WHERE id ?",
-    {
+    await connection.promise().query("UPDATE employee SET role_id = ? WHERE id = ?",
+    [
       role_id, 
       id
-    });
-      console.table(res);
+    ]
+    );
+      // console.table(res);
     userMenu();
     } catch (err) {
       console.log(err)
