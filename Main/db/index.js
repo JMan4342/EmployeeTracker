@@ -1,38 +1,38 @@
 const createEmployee = () => {
-    console.log('Inserting a new employee...\n');
-    const query = connection.query(
-      'INSERT INTO employee SET ?',
-      {
-        firstname,
-        lastname,
-        roleID,
-        managerID
-      },
-      (err, res) => {
-        if (err) throw err;
-        console.log(`${res.affectedRows} employee inserted!\n`);
-        // Call updateProduct AFTER the INSERT completes
-        updateEmployee();
-      }
-    );
-  
-    // logs the actual query being run
-    console.log(query.sql);
-  };
+  console.log("Inserting a new employee...\n");
+  const query = connection.query(
+    "INSERT INTO employee SET ?",
+    {
+      firstname,
+      lastname,
+      roleID,
+      managerID,
+    },
+    (err, res) => {
+      if (err) throw err;
+      console.log(`${res.affectedRows} employee inserted!\n`);
+      // Call updateProduct AFTER the INSERT completes
+      updateEmployee();
+    }
+  );
 
-createEmployee("employees", {
-    firstname: "",
-    lastname: "",
-    roleID: "",
-    managerID: ""
-})
+  // logs the actual query being run
+  console.log(query.sql);
+};
 
-createRole("roles", {
-    title: "",
-    salary: "",
-    departmentID: ""
-})
+createDept("department", {
+  name: "",
+});
 
-createDept("departments", {
-    name: ""
-})
+createRole("role", {
+  title: "",
+  salary: "",
+  departmentID: "",
+});
+
+createEmployee("employee", {
+  firstname: "",
+  lastname: "",
+  roleID: "",
+  managerID: "",
+});

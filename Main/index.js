@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const inquirer = require("inquirer");
 
 const connection = mysql.createConnection({
@@ -9,8 +9,9 @@ const connection = mysql.createConnection({
   database: "employeeDB",
 });
 
-function userMenu() {
-  inquirer
+async function userMenu() {
+  try {
+    const data = await inquirer
     .prompt({
       type: "list",
       name: "option",
@@ -26,7 +27,6 @@ function userMenu() {
         "Exit",
       ],
     })
-    .then(function (data) {
       if (data.option === "Add employee") {
         createEmployee();
       } else if (data.option === "Add role") {
@@ -45,11 +45,14 @@ function userMenu() {
         console.log("Good bye!");
         process.exit(0);
       }
-    });
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-function createEmployee() {
-  const { first_name, last_name, role_id, manager_id } = inquirer
+async function createEmployee() {
+  try  {
+  const { first_name, last_name, role_id, manager_id } = await inquirer
     .prompt([
       {
         message: "What is the employee's first name?",
@@ -68,36 +71,22 @@ function createEmployee() {
         name: "manager_id",
       },
     ])
-    .then((data) => {
-      const query = connection.query("INSERT INTO employee SET ? WHERE ?", {
+      await connection.promise().query("INSERT INTO employee SET ?", {
         first_name,
         last_name,
         role_id,
         manager_id,
-      });
-      console.log(data);
+      }) 
+      console.log("added user")
       userMenu();
-    });
-  // .then(
-  //   connection.query(
-  // "INSERT INTO employee SET ?",
-  // {
-  //   first_name,
-  //   last_name,
-  //   role_id,
-  //   manager_id,
-  // },
-  //     (err, res) => {
-  //       if (err) throw err;
-  //       console.log(`${res.affectedRows} employee created!\n`);
-  //       userMenu()
-  //     }
-  //   )
-  // );
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-function createRole() {
-  const { title, salary, department_id } = inquirer
+async function createRole() {
+  try {
+  const { title, salary, department_id } = await inquirer
     .prompt([
       {
         message: "What is the role's title?",
@@ -112,58 +101,66 @@ function createRole() {
         name: "department_id",
       },
     ])
-    .then((data) => {
-      const query = connection.query("INSERT INTO role SET ? WHERE ?", {
-        title,
-        salary,
-        department_id,
-      });
-      userMenu();
-    });
+    await connection.promise().query("INSERT INTO role SET ?", {
+      title,
+      salary,
+      department_id,
+    })
+    console.log("added role")
+    userMenu();
+    } catch(err) {
+      console.log(err)
+    }
 }
 
-function createDept() {
-  const { name } = inquirer
+async function createDept() {
+  try {
+  const { name } = await inquirer
     .prompt([
       {
         message: "What is the name of the department?",
         name: "name",
       },
     ])
-    .then((data) => {
-      const query = connection.query("INSERT INTO department SET ? WHERE ?", {
+      await connection.promise().query("INSERT INTO department SET ?", {
         name,
       });
+      console.log("added department")
       userMenu();
-    });
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-function viewEmployee() {
-  connection.query("SELECT * FROM employee", (err, res) => {
-    if (err) throw err;
-    console.log(res);
-    connection.end();
-  });
+async function viewEmployee() {
+  try {
+  const [res] = await connection.promise().query("SELECT * FROM employee")
+    console.table(res);
   userMenu();
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-function viewRole() {
-  connection.query("SELECT * FROM role", (err, res) => {
-    if (err) throw err;
-    console.log(res);
-    connection.end();
-  });
-  userMenu();
-}
+async function viewRole() {
+  try {
+    const [res] = await connection.promise().query("SELECT * FROM role")
+      console.table(res);
+    userMenu();
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
-function viewDept() {
-  connection.query("SELECT * FROM department", (err, res) => {
-    if (err) throw err;
-    console.log(res);
-    connection.end();
-  });
-  userMenu();
-}
+async function viewDept() {
+  try {
+    const [res] = await connection.promise().query("SELECT * FROM department")
+      console.table(res);
+    userMenu();
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
 // function updateEmployee() {
 
