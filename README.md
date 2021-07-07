@@ -5,12 +5,13 @@
 
 ## Description
 
-This application demonstrates my ability to create a database for an e-commerce store by utilizing MySQL and Sequelize. The ecommerce database utilizes a category, product, and tag tables to organize the inventory for the e-commerce store.  I am able to create, update, and delete items in each of these tables.
+This application will allow the user to interact with the an employee database allowing them to view tables inside this database, add data, and update an employee's role in the company. By utilizing the node, inquirer, and MySQL the user will be able to use a command-line inferface in their terminal to easily perform these functions.
 
 
 ## Table of Contents
 
 - [Installation](#installation)
+- [Usage](#usage)
 - [Contributing](#contributing)
 - [Testing](#testing)
 - [License](#license)
@@ -19,23 +20,26 @@ This application demonstrates my ability to create a database for an e-commerce 
 
 ## Installation
 
-To run the express dependency, you will need to type the command "npm i express". In order to give each note their own id, you will need to input the command " npm i nanoid".
+For the application to work, you will need to ensure that the inquirer and MySQL packages are installed by typing npm i inquirer and npm i mysql in the terminal command-line.
+
+
+## Usage
+
+To deploy the app you will need to type node index.js in the terminal command-line.
 
 
 ## Contributing
 
 If you are looking to contribute to the project, you can fork the repo from its GitHub page.
 
-You can find the project at https://github.com/JMan4342/eCommerce_BackEnd.
+You can find the project at https://github.com/JMan4342/EmployeeTracker.
 
 
 ## Testing
 
-Below you will find two links to videos showing the application in action in VS Code and Insomnia.
+Below you will find a link to a video showing the command-line application working in the terminal in VS Code.
 
-https://drive.google.com/file/d/1VA3N6Vx6Plzw5RJ9DEfSJPk64FO8oYxg/view?usp=sharing
-
-https://drive.google.com/file/d/1LzBlAyF8gt0VLdkIcOPMJ4JM1c8fjz6i/view?usp=sharing
+https://drive.google.com/file/d/1UlsoQTZhHT8lqH1SL9Q1sXxY7v0dNpl-/view?usp=sharing
 
 
 ## License
@@ -47,8 +51,8 @@ MIT
 
 I utilized the following sites to assist in creating my weather dashboard app.
 
-- https://www.w3schools.com/
-- https://medium.com
+- https://www.npmjs.com
+- https://www.mysqltutorial.org
 
 
 
